@@ -1,36 +1,32 @@
+import java.util.*;
+
 class Solution {
     public int catchThieves(char[] arr, int k) {
-        // code here
+
         List<Integer> police = new ArrayList<>();
         List<Integer> thieves = new ArrayList<>();
 
-        
+        // Store positions
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 'P') {
-                police.add(i);
-            } else if (arr[i] == 'T') {
-                thieves.add(i);
-            }
+            if (arr[i] == 'P') police.add(i);
+            else if (arr[i] == 'T') thieves.add(i);
         }
 
-        int i = 0, j = 0, result = 0;
+        int i = 0, j = 0, count = 0;
 
-        
+        // Two-pointer matching
         while (i < police.size() && j < thieves.size()) {
             if (Math.abs(police.get(i) - thieves.get(j)) <= k) {
-                
-                result++;
+                count++;
                 i++;
                 j++;
-            } else if (thieves.get(j) < police.get(i)) {
-               
-                j++;
+            } else if (police.get(i) < thieves.get(j)) {
+                i++;
             } else {
-                
-                i++;
+                j++;
             }
         }
 
-        return result;
+        return count;
     }
 }
